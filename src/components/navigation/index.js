@@ -16,7 +16,8 @@ function Navigation() {
     {label: 'Profile', icon: 'fa-user', path: '/profile'},
     {label: 'Movies', icon: 'fa-user', path: '/movies'},
     {label: 'More', icon: 'fa-circle-ellipsis', path: '/more'},
-    {label: 'Login', icon: 'fa-user', path: '/login'},
+    {label: 'Login', icon: 'fa-right-to-bracket', path: '/login'},
+    {label: 'Signup', icon: 'fa-pencil', path: '/signup'}
   ];
   return (
     <div className="ttr-navigation">

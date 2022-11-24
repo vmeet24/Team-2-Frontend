@@ -13,6 +13,7 @@ import Messages from "../messages";
 import Lists from "../lists";
 import More from "../more";
 import {Login} from "../profile/login";
+import Signup from "../profile/signup";
 import Movies from "../movies";
 import MovieDetails from "../movies/details";
 
@@ -37,10 +38,9 @@ function Tuiter () {
               <Route path="/messages" element={<Messages/>}/>
               <Route path="/bookmarks" element={<Bookmarks/>}/>
               <Route path="/lists" element={<Lists/>}/>
-              <Route path="/profile" element={<Profile/>}/>
+              <Route path="/profile/*" element={<Profile/>}/>
               <Route path="/profile/edit" element={<EditProfile/>}/>
-              <Route path="/movies" element={<Movies/>}/>
-              <Route path="/movies/:imdbID" element={<MovieDetails/>}/>
+              <Route path="/signup" element={<Signup/>}/>
               <Route path="/more" element={<More/>}/>
             </Routes>
           </div>

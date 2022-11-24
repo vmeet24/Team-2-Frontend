@@ -6,7 +6,7 @@ const MyTuits = () => {
     const [tuits, setTuits] = useState([]);
 
     const findMyTuits = () =>
-        service.findTuitsByUser("me")
+        service.findTuitByUser("me")
             .then(tuits => setTuits(tuits));
 
     useEffect(() => {
@@ -18,7 +18,10 @@ const MyTuits = () => {
             .then(findMyTuits);
 
     return(
-        <Tuits tuits={tuits} deleteTuit={deleteTuit} refreshTuits={findMyTuits}/>
+        <>
+            <i onClick={findMyTuits} className={"fa-solid fa-arrows-rotate"}></i>
+            <Tuits tuits={tuits} deleteTuit={deleteTuit} refreshTuits={findMyTuits}/>
+        </>
     );
 };
 

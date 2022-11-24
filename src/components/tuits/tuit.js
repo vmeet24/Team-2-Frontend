@@ -18,8 +18,7 @@ const Tuit = ({tuit, deleteTuit}) => {
         <h2
           className="fs-5">
           {tuit.postedBy && tuit.postedBy.username}
-          @{tuit.postedBy && tuit.postedBy.username} -
-          {tuit.published}</h2>
+          @{tuit.postedBy && tuit.postedBy.username} - {tuit.postedOn.slice(0,10)}</h2>
         {tuit.tuit}
         {
           tuit.youtube &&

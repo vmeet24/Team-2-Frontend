@@ -1,8 +1,6 @@
-import React from "react";
-import {findAllUsers, deleteUser} from "../../services/users-service";
+import React, {useEffect, useState} from "react";
+import {findAllUsers} from "../../services/users-service";
 import * as service from "../../services/auth-service";
-import {useEffect, useState} from "react";
-import {useLocation, useParams, Link} from "react-router-dom";
 import UserRow from './user-row'
 
 const Users = () => {

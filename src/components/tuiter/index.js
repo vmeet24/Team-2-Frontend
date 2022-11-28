@@ -14,8 +14,7 @@ import Lists from "../lists";
 import More from "../more";
 import {Login} from "../profile/login";
 import Signup from "../profile/signup";
-import Movies from "../movies";
-import MovieDetails from "../movies/details";
+import Users from "../users";
 
 function Tuiter () {
   return(
@@ -41,6 +40,7 @@ function Tuiter () {
               <Route path="/profile/*" element={<Profile/>}/>
               <Route path="/profile/edit" element={<EditProfile/>}/>
               <Route path="/signup" element={<Signup/>}/>
+              <Route path="/users" element={<Users/>}/>
               <Route path="/more" element={<More/>}/>
             </Routes>
           </div>

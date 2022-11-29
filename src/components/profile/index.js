@@ -4,6 +4,7 @@ import * as service from "../../services/auth-service";
 import {createTuit} from "../../services/tuits-service";
 import MyTuits from "./my-tuits";
 import MyLikes from "./my-likes";
+import MyDislikes from "./my-dislikes";
 import EditProfile from "./edit-profile";
 
 const Profile = () => {

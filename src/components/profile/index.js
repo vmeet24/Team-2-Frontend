@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, useNavigate, Link} from "react-router-dom";
 import * as service from "../../services/auth-service";
 import {createTuit} from "../../services/tuits-service";
 import MyTuits from "./my-tuits";
@@ -42,10 +42,10 @@ const Profile = () => {
                  src="../images/nasa-3.png"/>
           </div>
         </div>
-        {/* <Link to="/profile/edit"
+        <Link to="/profile/edit"
               className="mt-2 me-2 btn btn-large btn-light border border-secondary fw-bolder rounded-pill fa-pull-right">
           Edit profile
-        </Link> */}
+        </Link>
         <button onClick={logout} className="mt-2 float-end btn btn-warning rounded-pill">
           Logout
         </button>
@@ -73,7 +73,7 @@ const Profile = () => {
         <b>178</b> Following
         <b className="ms-4">51.1M</b> Followers
         {
-          profile.role === 'ADMIN' &&
+          profile.admin &&
           <a href="/#/admin/users"
              className="mt-3 btn btn-lg btn-warning rounded-pill w-100 fw-bold text-white">
             Admin Page</a>

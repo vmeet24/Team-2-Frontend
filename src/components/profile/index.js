@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Route, Routes, useNavigate, Link} from "react-router-dom";
+import {Route, Routes, useNavigate, Link, useLocation} from "react-router-dom";
 import * as service from "../../services/auth-service";
 import {createTuit} from "../../services/tuits-service";
 import MyTuits from "./my-tuits";
+import MyLikes from "./my-likes";
 import EditProfile from "./edit-profile";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [profile, setProfile] = useState({});
   const [tuit, setTuit] = useState('');
 
@@ -78,7 +80,7 @@ const Profile = () => {
              className="mt-3 btn btn-lg btn-warning rounded-pill w-100 fw-bold text-white">
             Admin Page</a>
         }
-        {/* <ul className="mt-4 nav nav-pills nav-fill">
+        <ul className="mt-4 nav nav-pills nav-fill">
           <li className="nav-item">
             <Link to="/profile/mytuits"
                   className={`nav-link ${location.pathname.indexOf('mytuits') >= 0 ? 'active':''}`}>
@@ -105,13 +107,13 @@ const Profile = () => {
               Dislikes
             </Link>
           </li>
-        </ul> */}
+        </ul>
       </div>
     </div>
     <Routes>
       <Route path="/mytuits" element={<MyTuits/>}/>
-      {/* <Route path="/mylikes" element={<MyLikes/>}/>
-      <Route path="/mydislikes" element={<MyDislikes/>}/> */}
+      <Route path="/mylikes" element={<MyLikes/>}/>
+      <Route path="/mydislikes" element={<MyDislikes/>}/>
     </Routes>
   </div>
 );

@@ -22,3 +22,7 @@ export const logout = (user) =>
 export const login = (credentials) =>
     api.post(`${AUTH_API}/login`, credentials)
         .then(response => response.data);
+
+export const deleteUser = () =>
+    api.delete(`${AUTH_API}/delete`)
+        .then(response => response.data)

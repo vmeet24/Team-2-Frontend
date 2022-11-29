@@ -14,10 +14,10 @@ function Navigation() {
     {label: 'Bookmarks', icon: 'fa-bookmark', path: '/bookmarks'},
     {label: 'Lists', icon: 'fa-list', path: '/lists'},
     {label: 'Profile', icon: 'fa-user', path: '/profile'},
-    {label: 'Movies', icon: 'fa-user', path: '/movies'},
-    {label: 'More', icon: 'fa-circle-ellipsis', path: '/more'},
+    {label: 'Users', icon: 'fa-users', path: '/users'},
     {label: 'Login', icon: 'fa-right-to-bracket', path: '/login'},
-    {label: 'Signup', icon: 'fa-pencil', path: '/signup'}
+    {label: 'Signup', icon: 'fa-pencil', path: '/signup'},
+    {label: 'More', icon: 'fa-circle-ellipsis', path: '/more'},
   ];
   return (
     <div className="ttr-navigation">

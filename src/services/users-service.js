@@ -27,10 +27,6 @@ export const deleteUsersByUsername = (username) =>
     api.delete(`${USERS_API}/username/${username}/delete`)
       .then(response => response.data);
 
-export const findUserByCredentials = (credentials) =>
-    api.post(`${LOGIN_API}`, credentials)
-      .then(response => response.data);
-
 const service = {
   findAllUsers
 }

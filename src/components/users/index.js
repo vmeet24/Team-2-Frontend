@@ -7,25 +7,25 @@ const Users = () => {
     const [profile, setProfile] = useState(null);
     const [users, setUsers] = useState([]);
 
+    const fetchUsers = async () => {
+        try {
+            const usersList = await findAllUsers();
+            setUsers(usersList);
+        } catch (e) {
+            alert('Error fetching user info');
+        }
+    }
+
     useEffect(() => {
         const fetchProfile = async () => {
             try {
                 const user = await service.profile();
                 setProfile(user);
-                console.log(profile)
             } catch (e) {
                 console.log('No user logged in')
             }
         }
 
-        const fetchUsers = async () => {
-            try {
-                const usersList = await findAllUsers();
-                setUsers(usersList);
-            } catch (e) {
-                alert('Error fetching user info');
-            }
-        }
         fetchProfile();
         fetchUsers();
     }, []);
@@ -36,13 +36,13 @@ const Users = () => {
             <h3>Administrators:</h3>
             <div className="list-group mb-3">
                 {users.filter(user => user.admin).map(user => 
-                    <UserRow key={user._id} user={user} profile={profile} />
+                    <UserRow key={user._id} user={user} profile={profile} refresh={fetchUsers}/>
                 )}
             </div>
             <h3>Users:</h3>
             <div className="list-group">
                 {users.filter(user => !user.admin).map(user =>
-                    <UserRow key={user._id} user={user} profile={profile} />
+                    <UserRow key={user._id} user={user} profile={profile} refresh={fetchUsers}/>
                 )}
             </div>
         </>

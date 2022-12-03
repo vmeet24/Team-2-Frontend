@@ -27,6 +27,10 @@ export const deleteUsersByUsername = (username) =>
     api.delete(`${USERS_API}/username/${username}/delete`)
       .then(response => response.data);
 
+export const updateUser = (uid, user) =>
+    api.put(`${USERS_API}/${uid}`, user)
+      .then(response => response.data);
+
 const service = {
   findAllUsers
 }

@@ -24,7 +24,7 @@ const AdminEditProfile = () => {
     useEffect(async () => {
         try {
             const logAsAdmin = await authService.profile();
-            if (logAsAdmin.role !== 'ADMIN') {
+            if (!adminUser.admin) {
                 alert("Must logged in as an admin user.")
                 navigate('/login')
             }

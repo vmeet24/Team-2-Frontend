@@ -2,6 +2,7 @@ import axios from "axios";
 const BASE_URL = process.env.REACT_APP_LOCAL_URL;
 const TUITS_API = `${BASE_URL}/tuits`;
 const USERS_API = `${BASE_URL}/users`;
+const ADMIN_API = `${BASE_URL}/api/admin`;
 
 const api = axios.create({
     withCredentials: true
@@ -34,3 +35,7 @@ export const deleteTuit = (tid) =>
 export const deleteTuitsByUserId = (tid) =>
     api.delete(`${TUITS_API}/${tid}/delete`)
         .then(response => response.data);
+
+export const searchByTuit = (tuit) =>
+    api.get(`${ADMIN_API}/${tuit}/tuits`)
+        .then(response => response.data)

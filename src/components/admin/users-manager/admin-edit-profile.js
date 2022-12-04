@@ -17,14 +17,14 @@ import * as usersService from "../../../services/users-service";
  */
 const AdminEditProfile = () => {
     const {uid} = useParams()
-    const [admin, setAdmin] = useState({});
+    const [adminUser, setAdmin] = useState({});
     const [profile, setProfile] = useState({});
     const [passwordChanged, setPasswordChanged] = useState(false);
     const navigate = useNavigate();
     useEffect(async () => {
         try {
             const logAsAdmin = await authService.profile();
-            if (!adminUser.admin) {
+            if (adminUser.admin === false) {
                 alert("Must logged in as an admin user.")
                 navigate('/login')
             }

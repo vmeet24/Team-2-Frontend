@@ -14,7 +14,7 @@ import * as authService from "../../../services/auth-service";
  */
 const UsersTableManager = () => {
     const [allUsers, setAllUsers] = useState([]);
-    const [newUser, setNewUser] = useState({role: 'GENERAL'});
+    const [newUser, setNewUser] = useState({admin: false});
 
     useEffect(async () => {
         const profile = await authService.profile().catch(e => alert("Must logged in as an admin user!"));
@@ -34,7 +34,7 @@ const UsersTableManager = () => {
             usersService.adminCreateUser(newUser)
                 .then((createdUser) => {
                     setAllUsers([...allUsers, createdUser])
-                    setNewUser({role: 'GENERAL'})
+                    setNewUser({admin: false})
                     alert("Created User successfully!")
                 })
                 .catch(e => alert("Please check if username is taken!"))
@@ -78,7 +78,6 @@ const UsersTableManager = () => {
                         <input className="form-check-input"
                                name='role'
                                type="radio"
-                               value='GENERAL'
                                checked={newUser.admin === false}
                                onChange={(e) =>
                                    setNewUser({...newUser, role: e.target.value})}/>
@@ -90,7 +89,6 @@ const UsersTableManager = () => {
                         <input className="form-check-input"
                                name='role'
                                type="radio"
-                               value='ADMIN'
                                checked={newUser.admin === true}
                                onChange={(e) =>
                                    setNewUser({...newUser, role: e.target.value})}/>

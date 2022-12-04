@@ -2,6 +2,7 @@ import axios from "axios";
 const BASE_URL = process.env.REACT_APP_LOCAL_URL;
 
 const USERS_API = `${BASE_URL}/users`;
+const ADMIN_API = `${BASE_URL}/api/admin`;
 
 const api = axios.create({
   withCredentials: true
@@ -30,6 +31,18 @@ export const deleteUsersByUsername = (username) =>
 export const updateUser = (uid, user) =>
     api.put(`${USERS_API}/${uid}`, user)
       .then(response => response.data);
+
+export const searchByUsername = (username) =>
+  axios.get(`${ADMIN_API}/${username}`)
+      .then(response => response.data)
+
+export const adminDeleteUser = (uid) =>
+  axios.delete(`${ADMIN_API}/${uid}`)
+      .then(response => response.data)
+
+export const adminCreateUser = (user) =>
+  axios.post(`${ADMIN_API}`, user)
+      .then(response => response.data)
 
 const service = {
   findAllUsers,

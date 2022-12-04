@@ -180,17 +180,6 @@ const EditProfile = () => {
                            type="email"/>
                 </div>
                 <div className="border border-secondary rounded-3 p-2 mb-3">
-                    <label htmlFor="account">Role</label>
-                    <select
-                        disabled={true}
-                        value={profileInfo.role || ''}
-                        className="p-0 form-control border-0"
-                        id="account">
-                        <option value="GENERAL">General User</option>
-                        <option value="ADMIN">Admin User</option>
-                    </select>
-                </div>
-                <div className="border border-secondary rounded-3 p-2 mb-3">
                     Marital status
                     <br/>
                     <div className='row'>

@@ -1,3 +1,4 @@
+import { signup } from "../services/auth-service";
 import { createTuit, findAllTuits, deleteTuit, findTuitById } from "../services/tuits-service";
 import { createUser, deleteUsersByUsername, deleteUser } from "../services/users-service"
 
@@ -42,21 +43,34 @@ describe('can delete tuit wtih REST API', () => {
     email: 'ellenripley@aliens.com'
   };
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await deleteUsersByUsername(ripley.username);
-    const user = await createUser(ripley);
+    const user = await signup({ username: ripley.username, password: ripley.password });
     ripley["id"] = user._id;
-    const newTuit = await createTuit(ripley["id"], tuit);
+    const newTuit = await createTuit(ripley["id"], tuit.tuit);
     tuit["id"] = newTuit._id;
   });
 
   test('can delete tuit with REST API', async () => {
     const status = await deleteTuit(tuit["id"]);
-
     expect(status.deletedCount).toBeGreaterThanOrEqual(1);
   })
 
-  afterAll(async () => {
+  test('can admin delete other users tuit with REST API', async () => {
+    const admin = {
+      username: 'thommas_sowell_admin',
+      password: 'compromise',
+      email: 'compromise_admin@solutions.com',
+      admin: true
+    };
+
+    await signup({ username: admin.username, password: admin.password, admin: admin.admin });
+    const status = await deleteTuit(tuit["id"]);
+    await deleteUsersByUsername(admin.username);
+    expect(status.deletedCount).toBeGreaterThanOrEqual(1);
+  })
+
+  afterEach(async () => {
     await deleteUsersByUsername(ripley.username);
   })
 });

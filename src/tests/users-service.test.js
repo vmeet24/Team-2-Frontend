@@ -66,7 +66,7 @@ describe('deleteUsersByUsername', () => {
   });
 });
 
-fdescribe('deleteUserByUserId', () => {
+describe('deleteUserByUserId', () => {
 
   // sample user to delete
   const sowell = {

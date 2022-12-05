@@ -1,7 +1,8 @@
+import { login, signup } from "../services/auth-service";
 import {
   createUser,
   deleteUsersByUsername, findAllUsers,
-  findUserById
+  findUserById, deleteUser
 } from "../services/users-service";
 
 describe('createUser', () => {
@@ -62,6 +63,44 @@ describe('deleteUsersByUsername', () => {
 
     // verify we deleted at least one user by their username
     expect(status.deletedCount).toBeGreaterThanOrEqual(1);
+  });
+});
+
+fdescribe('deleteUserByUserId', () => {
+
+  // sample user to delete
+  const sowell = {
+    username: 'thommas_sowell',
+    password: 'compromise',
+    email: 'compromise@solutions.com'
+  };
+
+  // setup the tests before verification
+  beforeAll(async () => {
+    // insert the sample user we then try to remove
+    const user = await createUser(sowell);
+    sowell._id = user._id;
+  });
+
+  // clean up after test runs
+  afterAll(async () => {
+    // remove any data we created
+    return await deleteUser(sowell._id);
+  })
+
+  test('can admin delete other user from REST API by userId', async () => {
+    // admin delete's a user by their id.
+    const admin = {
+      username: 'thommas_sowell_admin',
+      password: 'compromise',
+      email: 'compromise_admin@solutions.com',
+      admin: true
+    };
+    await signup({ username: admin.username, password: admin.password, admin: admin.admin });
+    const status = await deleteUser(sowell._id);
+    await deleteUsersByUsername(admin.username);
+    // verify we deleted at least one user by their username
+    expect(status.deletedCount).toBe(1);
   });
 });
 

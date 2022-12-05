@@ -71,7 +71,7 @@ const Profile = () => {
           Born October 1, 1958
           <br/>
           <i className="far fa-calendar me-2"/>
-          Joined December 2007
+          {profile.joined?.substring(0, 10) ?? ''}
         </p>
         <b>178</b> Following
         <b className="ms-4">51.1M</b> Followers
@@ -81,6 +81,27 @@ const Profile = () => {
              className="mt-3 btn btn-lg btn-warning rounded-pill w-100 fw-bold text-white">
             Admin Page</a>
         }
+        <div className="pt-3">
+          <textarea
+              value={tuit}
+              onChange={(e) =>
+                  setTuit(e.target.value)}
+              placeholder="What do you want to say?"
+              className="w-75 border-1"
+              resize="none"
+          >
+          </textarea>
+          <button
+              className={'btn btn-success rounded-pill right-button'}
+              onClick={() => {
+                createTuit(profile._id, tuit);
+                setTuit('');
+              }}
+              disabled={!tuit || !profile}
+          >
+            Post Tuit
+          </button>
+        </div>
         <ul className="mt-4 nav nav-pills nav-fill">
           <li className="nav-item">
             <Link to="/profile/mytuits"

@@ -44,3 +44,9 @@ body {
 .ttr-z-index-1 {
     z-index: 1;
 }
+
+.right-button {
+    float: right;
+    margin-top: 10px;
+    margin-right: 25px;
+}

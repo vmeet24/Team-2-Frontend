@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Route, Routes, useNavigate, Link, useLocation} from "react-router-dom";
 import * as service from "../../services/auth-service";
 import {createTuit} from "../../services/tuits-service";
+import {deleteUser} from "../../services/users-service";
 import MyTuits from "./my-tuits";
 import MyLikes from "./my-likes";
 import MyDislikes from "./my-dislikes";
@@ -29,6 +30,13 @@ const Profile = () => {
     service.logout(profile).then(() => navigate('/login'));
   }
 
+  const handleDeleteProfile = async () => {
+    const { deletedCount } = await deleteUser(profile._id);
+    if (deletedCount > 0) {
+      logout();
+    }
+  }
+
   return (
     <div className="ttr-profile">
     <div className="border border-bottom-0">
@@ -46,10 +54,22 @@ const Profile = () => {
           </div>
         </div>
         <Link to="/profile/edit"
-              className="mt-2 me-2 btn btn-large btn-light border border-secondary fw-bolder rounded-pill fa-pull-right">
+              className="mt-2 me-2 btn btn-large btn-primary border border-secondary fw-bolder rounded-pill fa-pull-right">
           Edit profile
         </Link>
-        <button onClick={logout} className="mt-2 float-end btn btn-warning rounded-pill">
+        <button
+            className="btn btn-danger rounded-pill fa-pull-right fw-bolder mt-2 mb-2"
+            onClick={async e => {
+              const msg = "Are you sure you want permanently delete your profile? This action cannot be undone."
+              const deleteProfile = window.confirm(msg);
+              if (deleteProfile) {
+                await handleDeleteProfile();
+              }
+            }}
+        >
+          Delete profile
+        </button>
+        <button onClick={logout} className="mt-2 float-end btn btn-warning rounded-pill fw-bolder">
           Logout
         </button>
       </div>
@@ -71,7 +91,7 @@ const Profile = () => {
           Born October 1, 1958
           <br/>
           <i className="far fa-calendar me-2"/>
-          Joined December 2007
+          {profile.joined?.substring(0, 10) ?? ''}
         </p>
         <b>178</b> Following
         <b className="ms-4">51.1M</b> Followers
@@ -81,6 +101,27 @@ const Profile = () => {
              className="mt-3 btn btn-lg btn-warning rounded-pill w-100 fw-bold text-white">
             Admin Page</a>
         }
+        <div className="pt-3">
+          <textarea
+              value={tuit}
+              onChange={(e) =>
+                  setTuit(e.target.value)}
+              placeholder="What do you want to say?"
+              className="w-75 border-1"
+              resize="none"
+          >
+          </textarea>
+          <button
+              className={'btn btn-success rounded-pill right-button'}
+              onClick={() => {
+                createTuit(profile._id, tuit);
+                setTuit('');
+              }}
+              disabled={!tuit || !profile}
+          >
+            Post Tuit
+          </button>
+        </div>
         <ul className="mt-4 nav nav-pills nav-fill">
           <li className="nav-item">
             <Link to="/profile/mytuits"

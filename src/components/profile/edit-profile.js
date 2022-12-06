@@ -40,7 +40,6 @@ const EditProfile = () => {
         if (profileInfo.password === '') {
             alert("Password cannot be empty")
         } else {
-            console.log("update to it", newProfile)
             userService.updateUser(newProfile._id, newProfile)
                 .then(res => {
                     alert("Successfully Updated!")

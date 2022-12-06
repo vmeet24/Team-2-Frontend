@@ -32,7 +32,8 @@ export const updateUser = (uid, user) =>
       .then(response => response.data);
 
 const service = {
-  findAllUsers
+  findAllUsers,
+  updateUser
 }
 
 export default service;

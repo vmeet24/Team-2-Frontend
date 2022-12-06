@@ -2,7 +2,7 @@ import axios from "axios";
 const BASE_URL = process.env.REACT_APP_LOCAL_URL;
 const TUITS_API = `${BASE_URL}/tuits`;
 const USERS_API = `${BASE_URL}/users`;
-const ADMIN_API = `${BASE_URL}/api/admin`;
+const ADMIN_API = `${BASE_URL}/admin`;
 
 const api = axios.create({
     withCredentials: true

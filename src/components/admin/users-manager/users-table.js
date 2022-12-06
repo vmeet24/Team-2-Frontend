@@ -3,6 +3,7 @@
  * and enables admins to delete users' account.
  */
 import React, {useEffect, useState} from "react";
+import * as usersService from "../../../services/users-service";
 import {Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import "../admin.css"
@@ -12,12 +13,22 @@ import "../admin.css"
  * @param users JSON array that contains all users.
  * @param deleteUser callback function to delete a certain user.
  */
-const UsersTable = ({users, deleteUser}) => {
+const UsersTable = ({users}) => {
     const [allUsers, setAllUsers] = useState(users);
 
     useEffect(() => {
         setAllUsers(users)
     }, [users])
+
+    const deleteUser = (uid) => {
+        usersService.adminDeleteUser(uid)
+            .then(res => {
+                let updatedUsers = allUsers.filter(u => u._id !== uid);
+                setAllUsers(updatedUsers);
+                alert("Successfully deleted!")
+            })
+            .catch(e => alert("Try again later! 1" ))
+    }
 
     return (
         <div>

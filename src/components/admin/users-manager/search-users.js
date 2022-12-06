@@ -30,7 +30,6 @@ const SearchUsers = () => {
             .then((users) => {
                 let results = users.filter(u => u._id !== currentAdminId);
                 setSearchResults(results);
-                console.log(results);
             })
     }
 

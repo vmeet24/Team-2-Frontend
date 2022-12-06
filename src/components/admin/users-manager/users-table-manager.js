@@ -39,7 +39,6 @@ const UsersTableManager = () => {
                 })
                 .catch(e => alert("Please check if username is taken!"))
         } catch (e) {
-            console.log(e)
             alert("Please try again!")
         }
     }

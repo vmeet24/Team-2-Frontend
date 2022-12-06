@@ -50,11 +50,9 @@ const AdminEditProfile = () => {
         if (profile.password === '') {
             alert("Password cannot be empty")
         } else {
-            console.log("update to it", newProfile)
             usersService.updateUser(newProfile._id, newProfile)
                 .then(res => {
                     alert("Successfully Updated!")
-                    // console.log(profile)
                     setProfile(newProfile);
                     setPasswordChanged(false);
                 })

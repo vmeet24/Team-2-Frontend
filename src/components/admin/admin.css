@@ -1,0 +1,20 @@
+.admin-delete-button {
+    cursor: pointer;
+    color: red;
+}
+
+.edit-button {
+    cursor: pointer;
+}
+
+.up-del-buttons {
+    cursor: pointer;
+}
+
+.save-button{
+    color: green;
+}
+
+.trash-button{
+    color: red;
+}

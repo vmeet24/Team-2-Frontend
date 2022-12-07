@@ -18,7 +18,6 @@ import Users from "../users";
 
 function Tuiter () {
   return(
-    <HashRouter>
       <div className="container">
         <div className="ttr-tuiter">
           <div className="ttr-left-column">
@@ -49,7 +48,6 @@ function Tuiter () {
           </div>
         </div>
       </div>
-    </HashRouter>
   );
 }
 export default Tuiter;

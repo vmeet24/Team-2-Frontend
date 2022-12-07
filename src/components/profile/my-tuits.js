@@ -25,7 +25,7 @@ const MyTuits = () => {
 
     return(
         <>
-            <i onClick={findMyTuits} className={"fa-solid fa-arrows-rotate"}></i>
+            <i onClick={findMyTuits} className={"fa-solid fa-arrows-rotate px-2 mt-2"}></i>
             <Tuits
                 tuits={tuits}
                 deleteTuit={deleteTuit}

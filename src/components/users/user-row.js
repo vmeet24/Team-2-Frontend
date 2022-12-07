@@ -33,7 +33,13 @@ const UserRow = ({user, profile, refresh}) => {
             <button
                 disabled={!profile || !profile.admin || deleted}
                 hidden={!profile || !profile.admin}
-                onClick={(e) => handleDelete(user._id) }
+                onClick={(e) => {
+                    const msg = "Are you sure you want permanently delete this user? This action cannot be undone."
+                    const confirmDelete = window.confirm(msg)
+                    if (confirmDelete) {
+                        handleDelete(user._id)
+                    }
+                }}
                 className="btn btn-danger fa-pull-right"
             >
                 <i className="fas fa-remove"></i>

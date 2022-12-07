@@ -4,6 +4,12 @@ import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
 
 const Tuit = ({tuit, deleteTuit}) => {
+    const handleDelete = () => {
+        const confirm = window.confirm("Are you sure you want delete this tuit?")
+        if (confirm) {
+            deleteTuit(tuit._id);
+        }
+    }
   return(
     <li className="p-2 ttr-tuit list-group-item d-flex rounded-0">
       <div className="pe-2">
@@ -14,7 +20,7 @@ const Tuit = ({tuit, deleteTuit}) => {
         }
       </div>
       <div className="w-100">
-          <i onClick={() => deleteTuit(tuit._id)} className="fas fa-remove fa-2x fa-pull-right"></i>
+          <i onClick={handleDelete} className="fas fa-remove fa-2x fa-pull-right"></i>
         <h2
           className="fs-5">
           {tuit.postedBy && tuit.postedBy.username}

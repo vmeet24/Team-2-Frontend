@@ -22,12 +22,9 @@ const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
         }
       </div>
       <div className="w-100">
-          {(profile && (profile.admin || tuit?.postedBy?._id === profile?._id)) &&
-              <i
-                  onClick={handleDelete}
-                  className="fas fa-remove fa-2x fa-pull-right"
-              >
-              </i>
+          {(profile && profile?._id && tuit.postedBy?._id &&
+              (tuit.postedBy._id === profile._id || profile.admin)) &&
+              (<i onClick={handleDelete} className="fas fa-remove fa-2x fa-pull-right"></i>)
           }
         <h2
           className="fs-5">

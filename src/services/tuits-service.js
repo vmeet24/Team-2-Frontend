@@ -37,5 +37,5 @@ export const deleteTuitsByUserId = (tid) =>
         .then(response => response.data);
 
 export const searchByTuit = (tuit) =>
-    api.get(`${ADMIN_API}/${tuit}/tuits`)
+    api.get(`${ADMIN_API}/tuits/${tuit}`)
         .then(response => response.data)

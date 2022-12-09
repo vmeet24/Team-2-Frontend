@@ -4,35 +4,28 @@ import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
 
 const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
-
-  const Tuit = ({tuit, deleteTuit}) => {
-    const handleDelete = () => {
+    const handleDelete = async () => {
         const confirm = window.confirm("Are you sure you want delete this tuit?")
         if (confirm) {
-            deleteTuit(tuit._id);
+            await deleteTuit(tuit._id);
+            await refreshTuits()
         }
     }
-    
-  return(
+
+    return(
     <li className="p-2 ttr-tuit list-group-item d-flex rounded-0">
-      <div className="pe-2">
-        {
-          tuit.postedBy &&
-          <img src={`../images/${tuit.postedBy.username}.jpg`}
-               className="ttr-tuit-avatar-logo rounded-circle"/>
-        }
-      </div>
-      <div className="w-100">
-          {(profile && (profile.admin || tuit?.postedBy?._id === profile?._id)) &&
-              <i
-                  onClick={async () => {
-                      await deleteTuit(tuit._id)
-                      await refreshTuits()
-                  }}
-                  className="fas fa-remove fa-2x fa-pull-right"
-              >
-              </i>
-          }
+        <div className="pe-2">
+            {
+                tuit.postedBy &&
+                <img src={`../images/${tuit.postedBy.username}.jpg`}
+                     className="ttr-tuit-avatar-logo rounded-circle"/>
+            }
+        </div>
+        <div className="w-100">
+            {(profile && profile?._id && tuit.postedBy?._id &&
+                    (tuit.postedBy._id === profile._id || profile.admin)) &&
+                (<i onClick={handleDelete} className="fas fa-remove fa-2x fa-pull-right"></i>)
+            }
         <h2
           className="fs-5">
           {tuit.postedBy && tuit.postedBy.username}

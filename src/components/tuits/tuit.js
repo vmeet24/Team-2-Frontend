@@ -4,6 +4,15 @@ import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
 
 const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
+
+  const Tuit = ({tuit, deleteTuit}) => {
+    const handleDelete = () => {
+        const confirm = window.confirm("Are you sure you want delete this tuit?")
+        if (confirm) {
+            deleteTuit(tuit._id);
+        }
+    }
+    
   return(
     <li className="p-2 ttr-tuit list-group-item d-flex rounded-0">
       <div className="pe-2">

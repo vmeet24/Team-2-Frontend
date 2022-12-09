@@ -22,7 +22,6 @@ const EditProfile = () => {
     useEffect(() => {
         authService.profile()
             .then(profile => {
-                console.log(profile)
                 setProfileInfo(profile);
             })
     }, [])
@@ -59,14 +58,18 @@ const EditProfile = () => {
      * clicks "delete" button
      */
     const handleDeleteAccount = () => {
-        authService.deleteUser()
-            .then(()=> {
-                alert("Successfully delete your account!")
-                navigate("/")
-            })
-            .catch((e) => {
-                alert("Failed to delete your account. Try again later!")
-            })
+        const msg = "Are you sure you want permanently delete your profile? This action cannot be undone."
+        const confirmDelete = window.confirm(msg)
+        if (confirmDelete) {
+            authService.deleteUser()
+                .then(() => {
+                    alert("Successfully deleted your account!")
+                    navigate("/")
+                })
+                .catch((e) => {
+                    alert("Failed to delete your account. Try again later!")
+                })
+        }
     }
     return(
       <div className="ttr-edit-profile">
@@ -80,12 +83,12 @@ const EditProfile = () => {
                       className="save-button-2 btn btn-success rounded-pill fa-pull-right fw-bolder mt-2 mb-2 me-2">
                     Save
                 </span>
-                <Link
+                <button
                     className="delete-button btn btn-danger rounded-pill fa-pull-right fw-bolder mt-2 mb-2 me-2"
                     onClick={() => handleDeleteAccount()}
-                    to='/'>
+                >
                     Delete
-                </Link>
+                </button>
                 <h4 className="p-2 mb-0 pb-0 fw-bolder">Edit profile</h4>
                 <div className="mb-5 position-relative">
                     <img className="w-100" src="../images/nasa-profile-header.jpg"/>

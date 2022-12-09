@@ -12,7 +12,7 @@ const Users = () => {
             const usersList = await findAllUsers();
             setUsers(usersList);
         } catch (e) {
-            alert('Error fetching user info');
+            alert('Access restricted');
         }
     }
 

@@ -3,15 +3,13 @@ import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
 import {profile} from "../../services/auth-service"
 import {useEffect, useState} from "react";
-import {useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 const Home = () => {
-  const location = useLocation();
   const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
-  const [userProfile, setUserProfile] = useState({});
-  const userId = uid;
+  const [userProfile, setUserProfile] = useState(null);
 
   const getProfile = () =>
     profile().then(user => setUserProfile(user))
@@ -27,14 +25,12 @@ const Home = () => {
   }
 
   useEffect(() => {
-    let isMounted = true;
     findTuits()
     getProfile()
-    return () => {isMounted = false;}
   }, []);
 
   const createTuit = () =>
-      service.createTuit(userId, {tuit})
+      service.createTuit(userProfile._id, tuit)
           .then(findTuits)
 
   const deleteTuit = (tid) =>
@@ -43,21 +39,20 @@ const Home = () => {
 
   return(
     <div className="ttr-home">
-      <div className="border border-bottom-0">
+      <div className={userProfile ? "border border-bottom-0" : "border"}>
         <h4 className="fw-bold p-2">Home Screen</h4>
-        {
-          uid &&
+        {userProfile &&
           <div className="d-flex">
             <div className="p-2">
-              <img className="ttr-width-50px rounded-circle"
-                   src="../images/nasa-logo.jpg"/>
+              <img className="ttr-width-50px rounded-circle" src="../images/nasa-logo.jpg"/>
             </div>
             <div className="p-2 w-100">
               <textarea
-                  onChange={(e) =>
-                      setTuit(e.target.value)}
-                placeholder="What's happening?"
-                className="w-100 border-0"></textarea>
+                  value={tuit}
+                  onChange={(e) => setTuit(e.target.value)}
+                  placeholder="What's happening?"
+                  className="w-100 border-0"
+              ></textarea>
               <div className="row">
                 <div className="col-10 ttr-font-size-150pc text-primary">
                   <i className="fas fa-portrait me-3"></i>
@@ -68,17 +63,23 @@ const Home = () => {
                   <i className="far fa-map-location me-3"></i>
                 </div>
                 <div className="col-2">
-                  <a onClick={createTuit}
-                     className={`btn btn-primary rounded-pill fa-pull-right
-                                  fw-bold ps-4 pe-4`}>
+                  <button
+                      className={`btn btn-success rounded-pill fa-pull-right fw-bold ps-4 pe-4`}
+                      onClick={async () => {
+                        await createTuit()
+                        setTuit('')
+                      }}
+                      disabled={!tuit || !userProfile}
+                  >
                     Tuit
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         }
       </div>
+      {!userProfile && <h4 className="pt-2 pb-2 text-center"><i>Please login to post your own tuits</i></h4>}
       <Tuits
           tuits={tuits}
           deleteTuit={deleteTuit}

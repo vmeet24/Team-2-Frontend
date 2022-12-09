@@ -1,6 +1,7 @@
 import React from "react";
 import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
+import {profile} from "../../services/auth-service"
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 
@@ -9,9 +10,14 @@ const Home = () => {
   const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
+  const [userProfile, setUserProfile] = useState({});
   const userId = uid;
+
+  const getProfile = () =>
+    profile().then(user => setUserProfile(user))
+
   const findTuits = () => {
-    if(uid) {
+    if (uid) {
       return service.findTuitByUser(uid)
         .then(tuits => setTuits(tuits))
     } else {
@@ -19,17 +25,22 @@ const Home = () => {
         .then(tuits => setTuits(tuits))
     }
   }
+
   useEffect(() => {
     let isMounted = true;
     findTuits()
+    getProfile()
     return () => {isMounted = false;}
   }, []);
+
   const createTuit = () =>
       service.createTuit(userId, {tuit})
           .then(findTuits)
+
   const deleteTuit = (tid) =>
       service.deleteTuit(tid)
           .then(findTuits)
+
   return(
     <div className="ttr-home">
       <div className="border border-bottom-0">
@@ -68,7 +79,12 @@ const Home = () => {
           </div>
         }
       </div>
-      <Tuits tuits={tuits} deleteTuit={deleteTuit}/>
+      <Tuits
+          tuits={tuits}
+          deleteTuit={deleteTuit}
+          profile={userProfile}
+          refreshTuits={findTuits}
+      />
     </div>
   );
 };

@@ -4,12 +4,11 @@ import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
 
 const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
-
-  const Tuit = ({tuit, deleteTuit}) => {
-    const handleDelete = () => {
+    const handleDelete = async () => {
         const confirm = window.confirm("Are you sure you want delete this tuit?")
         if (confirm) {
-            deleteTuit(tuit._id);
+            await deleteTuit(tuit._id);
+            await refreshTuits()
         }
     }
     
@@ -25,10 +24,7 @@ const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
       <div className="w-100">
           {(profile && (profile.admin || tuit?.postedBy?._id === profile?._id)) &&
               <i
-                  onClick={async () => {
-                      await deleteTuit(tuit._id)
-                      await refreshTuits()
-                  }}
+                  onClick={handleDelete}
                   className="fas fa-remove fa-2x fa-pull-right"
               >
               </i>

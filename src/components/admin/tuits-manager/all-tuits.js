@@ -19,7 +19,7 @@ const AllTuits = () => {
             .then(res => {
                 let updatedTuits = allTuits.filter(t => t._id !== tid);
                 setAllTuits(updatedTuits);
-                alert("Tuti successfully deleted!")
+                alert("Tuit successfully deleted!")
             })
             .catch(e => alert("Try again later!"))
     }

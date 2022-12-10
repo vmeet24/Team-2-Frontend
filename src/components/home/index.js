@@ -79,12 +79,14 @@ const Home = () => {
           </div>
         }
       </div>
-      {!userProfile && <h4 className="pt-2 pb-2 text-center"><i>Please login to post your own tuits</i></h4>}
+      {!userProfile &&
+          <h4 className="pt-2 pb-2 text-center"><i>Please login to post your own tuits</i></h4>
+      }
       <Tuits
           tuits={tuits}
-          deleteTuit={deleteTuit}
           profile={userProfile}
           refreshTuits={findTuits}
+          deleteTuit={deleteTuit}
       />
     </div>
   );

@@ -11,10 +11,11 @@ export const userTogglesTuitBookmarks = (uid, tid) =>
     api.put(`${USERS_API}/${uid}/bookmarks/${tid}`)
         .then(response => response.data)
 
+
 export const findAllTuitsBookmarkedByUser = (uid) =>
     api.get(`${USERS_API}/${uid}/bookmarks`)
         .then(response => response.data)
 
 export const findAllBookmarks = () =>
     api.get(`${BASE_URL}/api/bookmarks`)
-      .then(response => response.data)
+        .then(response => response.data)

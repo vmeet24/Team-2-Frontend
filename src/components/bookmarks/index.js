@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from "react";
 import Tuits from "../tuits";
-import * as bookmarkService from "../../services/bookmarks-service.js"
+import * as tuitService from "../../services/tuits-service";
+import * as bookmarkService from "../../services/bookmarks-service.js";
 import * as service from "../../services/auth-service";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function Bookmarks () {
-  const navigate = useNavigate();
-    const [profile, setProfile] = useState({});
-    const [bookmarkedTuits, setBookmarkedTuits] = useState([])
+    const navigate = useNavigate();
+    const [profile, setProfile] = useState(null);
+    const [bookmarkedTuits, setBookmarkedTuits] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    useEffect( async () => {
+    const getTuits = async () => {
         try {
             const user = await service.profile();
             setProfile(user);
@@ -18,7 +20,14 @@ function Bookmarks () {
             alert("Please login!")
             navigate('/login');
         }
-        // replace with fetch call for finding all bookmarked tuits
+    }
+
+    const deleteTuit = (tid) =>
+        tuitService.deleteTuit(tid)
+            .then(getTuits)
+
+    useEffect(() => {
+        getTuits()
     }, [])
 
     /**
@@ -27,15 +36,23 @@ function Bookmarks () {
     const findTuitsIBookmark = () => {
         bookmarkService.findAllTuitsBookmarkedByUser("me")
             .then(tuits => {
-                console.log(tuits)
-                setBookmarkedTuits(tuits)
+                setBookmarkedTuits(tuits.map(tuit => tuit.bookmarkedTuit));
+                setLoading(false);
             });
     }
 
     return (
         <div>
             <h1>My Bookmarks</h1>
-            <Tuits tuits={bookmarkedTuits} refreshTuits={findTuitsIBookmark}/>
+            {(!loading && bookmarkedTuits.length === 0) &&
+                <h4><i>You have no bookmarked tuits</i></h4>
+            }
+            <Tuits
+                tuits={bookmarkedTuits}
+                refreshTuits={findTuitsIBookmark}
+                profile={profile}
+                deleteTuit={deleteTuit}
+            />
         </div>
     );
 }

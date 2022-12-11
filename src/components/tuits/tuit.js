@@ -8,7 +8,7 @@ const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
         const confirm = window.confirm("Are you sure you want delete this tuit?")
         if (confirm) {
             await deleteTuit(tuit._id);
-            await refreshTuits()
+            await refreshTuits();
         }
     }
 
@@ -39,7 +39,7 @@ const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
           tuit.image &&
           <TuitImage tuit={tuit}/>
         }
-        <TuitStats tuit={tuit}/>
+        <TuitStats tuit={tuit} user={profile} refreshTuits={refreshTuits}/>
       </div>
     </li>
   );

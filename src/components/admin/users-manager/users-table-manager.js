@@ -77,9 +77,9 @@ const UsersTableManager = () => {
                         <input className="form-check-input"
                                name='role'
                                type="radio"
-                               checked={newUser.admin === false}
+                               checked={!newUser.admin}
                                onChange={(e) =>
-                                   setNewUser({...newUser, role: e.target.value})}/>
+                                   setNewUser({...newUser, admin: false})}/>
                         <label className="form-check-label">
                             GENERAL
                         </label>
@@ -88,9 +88,9 @@ const UsersTableManager = () => {
                         <input className="form-check-input"
                                name='role'
                                type="radio"
-                               checked={newUser.admin === true}
+                               checked={newUser.admin}
                                onChange={(e) =>
-                                   setNewUser({...newUser, role: e.target.value})}/>
+                                   setNewUser({...newUser, admin: true})}/>
                         <label className="form-check-label">
                             ADMIN
                         </label>

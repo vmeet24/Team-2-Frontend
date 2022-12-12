@@ -5,14 +5,12 @@
 import React, {useEffect, useState} from "react";
 import * as tuitsService from "../../../services/tuits-service"
 import EditableTuits from "./editable-tuits";
-import {useParams} from "react-router-dom";
 
 /**
  * Implements tuit list that displays all tuits and uses editable tuits component
  * that enables admins to manage tuits in the system.
  */
 const AllTuits = () => {
-    const {currentPage} = useParams();
     const [allTuits, setAllTuits] = useState([]);
     const deleteTuit = (tid) => {
         tuitsService.deleteTuit(tid)
@@ -24,18 +22,21 @@ const AllTuits = () => {
             .catch(e => alert("Try again later!"))
     }
 
-    useEffect(async () => {
-        let fetchTuits = await tuitsService.findAllTuits()
-        setAllTuits(fetchTuits);
-   
+    useEffect(() => {
+        const onMount = async () => {
+            let fetchTuits = await tuitsService.findAllTuits()
+            setAllTuits(fetchTuits);
+        }
+        onMount()
     }, [])
 
     return(
         <div>
             <h2>All Tuits</h2>
             <EditableTuits 
-            deleteTuit={deleteTuit}
-            allTuits={allTuits}/>
+                deleteTuit={deleteTuit}
+                allTuits={allTuits}
+            />
         </div>
     )
 }

@@ -5,7 +5,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
-
 /**
  * Implements editable tuit component that display each tuit
  * and enables admins to edit/delete the tuit.
@@ -13,7 +12,8 @@ import {Link} from "react-router-dom";
 
 const EditableTuit = ({tuit, deleteTuit}) => {
     const [tuitCache, setTuitCache] = useState(tuit);
-    const [editing, setEditing] = useState(false);
+    const editing = false;
+
     const daysOld = (tuit) => {
         const now = new Date();
         const nowMillis = now.getTime();
@@ -46,11 +46,13 @@ const EditableTuit = ({tuit, deleteTuit}) => {
                     tuit.postedBy &&
                     <img src={`../images/${tuit.postedBy.username}.jpg`}
                          width={20}
-                         className="ttr-tuit-avatar-logo rounded-circle"/>
+                         className="ttr-tuit-avatar-logo rounded-circle"
+                         alt=""
+                    />
                 }
             </div>
             <div className="w-100">
-                <i onClick={()=> deleteTuit(tuit._id)}
+                <i onClick={async () => await deleteTuit(tuit._id)}
                 data-testid='delete-button'
                 className='float-end fa fa-trash mr-1'/>
                <h2

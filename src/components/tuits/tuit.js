@@ -17,7 +17,7 @@ const Tuit = ({tuit, deleteTuit, profile, refreshTuits}) => {
         <div className="pe-2">
             {
                 tuit.postedBy &&
-                <img src={`../images/${tuit.postedBy.username}.jpg`}
+                <img alt="" src={`../images/${tuit.postedBy.username}.jpg`}
                      className="ttr-tuit-avatar-logo rounded-circle"/>
             }
         </div>

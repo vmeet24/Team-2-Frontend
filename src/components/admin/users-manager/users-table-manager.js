@@ -16,11 +16,14 @@ const UsersTableManager = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [newUser, setNewUser] = useState({admin: false});
 
-    useEffect(async () => {
-        const profile = await authService.profile().catch(e => alert("Must logged in as an admin user!"));
-        let fetchUsers = await usersService.findAllUsers();
-        fetchUsers = fetchUsers.filter(u => u._id !== profile._id);
-        setAllUsers(fetchUsers);
+    useEffect(() => {
+        const onMount = async () => {
+            const profile = await authService.profile().catch(e => alert("Must logged in as an admin user!"));
+            let fetchUsers = await usersService.findAllUsers();
+            fetchUsers = fetchUsers.filter(u => u._id !== profile._id);
+            setAllUsers(fetchUsers);
+        }
+        onMount()
     }, [])
 
     const createANewUser = () => {

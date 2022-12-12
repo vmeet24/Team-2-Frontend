@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Tuits from "../tuits";
 import * as tuitService from "../../services/tuits-service";
 import * as bookmarkService from "../../services/bookmarks-service.js";
@@ -22,13 +22,15 @@ function Bookmarks () {
         }
     }
 
+    const callbackTuits = useCallback(getTuits, [navigate])
+
     const deleteTuit = (tid) =>
         tuitService.deleteTuit(tid)
             .then(getTuits)
 
     useEffect(() => {
-        getTuits()
-    }, [])
+        callbackTuits()
+    }, [callbackTuits])
 
     /**
      * Fetch all tuits that bookmarked by user

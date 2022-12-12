@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
 import {profile} from "../../services/auth-service"
@@ -14,7 +14,7 @@ const Home = () => {
   const getProfile = () =>
     profile().then(user => setUserProfile(user))
 
-  const findTuits = () => {
+  const findTuits = useCallback(() => {
     if (uid) {
       return service.findTuitByUser(uid)
         .then(tuits => setTuits(tuits))
@@ -22,12 +22,12 @@ const Home = () => {
       return service.findAllTuits()
         .then(tuits => setTuits(tuits))
     }
-  }
+  }, [uid])
 
   useEffect(() => {
     findTuits()
     getProfile()
-  }, []);
+  }, [findTuits]);
 
   const createTuit = () =>
       service.createTuit(userProfile._id, tuit)
@@ -44,7 +44,7 @@ const Home = () => {
         {userProfile &&
           <div className="d-flex">
             <div className="p-2">
-              <img className="ttr-width-50px rounded-circle" src="../images/nasa-logo.jpg"/>
+              <img alt="" className="ttr-width-50px rounded-circle" src="../images/nasa-logo.jpg"/>
             </div>
             <div className="p-2 w-100">
               <textarea

@@ -21,21 +21,24 @@ const AdminEditProfile = () => {
     const [profile, setProfile] = useState({});
     const [passwordChanged, setPasswordChanged] = useState(false);
     const navigate = useNavigate();
-    useEffect(async () => {
-        try {
-            const logAsAdmin = await authService.profile();
-            if (adminUser.admin === false) {
+    useEffect(() => {
+        const onMount = async () => {
+            try {
+                const logAsAdmin = await authService.profile();
+                if (adminUser.admin === false) {
+                    alert("Must logged in as an admin user.")
+                    navigate('/login')
+                }
+                setAdmin(logAsAdmin)
+                const findUserProfile = await usersService.findUserById(uid);
+                setProfile(findUserProfile);
+            } catch (e) {
                 alert("Must logged in as an admin user.")
                 navigate('/login')
             }
-            setAdmin(logAsAdmin)
-            const findUserProfile = await usersService.findUserById(uid);
-            setProfile(findUserProfile);
-        } catch (e) {
-            alert("Must logged in as an admin user.")
-            navigate('/login')
         }
-    }, [])
+        onMount()
+    }, [adminUser.admin, navigate, uid])
 
     /**
      * A call back function that helps call user service
@@ -75,18 +78,13 @@ const AdminEditProfile = () => {
                       className="save-button-2 btn btn-success rounded-pill fa-pull-right fw-bolder mt-2 mb-2 me-2">
                     Save
                 </span>
-                {/* <Link
-                    className="delete-button btn btn-danger rounded-pill fa-pull-right fw-bolder mt-2 mb-2 me-2"
-                    onClick={() => handleDeleteAccount()}
-                    to='/'>
-                    Delete
-                </Link> */}
                 <h4 className="p-2 mb-0 pb-0 fw-bolder">Edit profile</h4>
                 <div className="mb-5 position-relative">
-                    <img className="w-100" src="../images/nasa-profile-header.jpg"/>
+                    <img alt="" className="w-100" src="../images/nasa-profile-header.jpg"/>
                     <div className="bottom-0 left-0 position-absolute">
                         <div className="position-relative">
                             <img
+                                alt=""
                                 className="position-relative ttr-z-index-1 ttr-top-40px ttr-width-150px"
                                 src="../images/nasa-3.png"/>
                         </div>
